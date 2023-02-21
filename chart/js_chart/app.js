@@ -1,12 +1,8 @@
-var meterRegular = [], meterForward = []
 const xlabels = ['From sensor 0', 'From sensor 1']
-
+var currentMax = 20;
 
 const config = {
-    // The type of chart we want to create
     type: 'bar',
-
-    // The data for our dataset
     data: {
         labels: xlabels,
         datasets: [
@@ -31,26 +27,12 @@ const config = {
                         beginAtZero: true,
                         steps: 5,
                         stepValue: 5,
-                        // max: 50
+                        max: currentMax
                     }
                 }]
         }
     }
 }
-
-// async function meterChart() {
-//   await getMeterData()
-
-
-
-
-// setTimeout(meterChart, 5000);
-
-// }
-
-// meterChart()
-
-
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const chart = new Chart(ctx, config);
@@ -71,28 +53,19 @@ function updateChart(){
 
         chart.config.data.datasets[0].data = barChartRegular;
         chart.config.data.datasets[1].data = barChartForward;
+        function checkMax(barChartRegular, barChartForward){
+            console.log(barChartRegular)
+            if (barChartRegular.some(el => el > currentMax)){
+                currentMax = Math.max.apply(Math, barChartRegular) + 20;
+                chart.config.options.scales.yAxes[0].ticks.max = currentMax;
+            }
+            if (barChartForward.some(el => el > currentMax)){
+                currentMax = Math.max.apply(Math, barChartForward) + 20;
+                chart.config.options.scales.yAxes[0].ticks.max = currentMax;
+            }
+        }
+        checkMax(barChartRegular, barChartForward)
         chart.update();
     })
-
-    console.log('update');
 };
 setInterval(updateChart, 5000);
-
-
-//Fetch Data from API
-
-// async function getMeterData() {
-//   const apiUrl = "http://127.0.0.1:8000/meter_status"
-
-//   const response = await fetch(apiUrl)
-//   const barChatData = await response.json()
-  
-//   console.log(barChatData)
-//   const barChartRegular = barChatData.regular
-//   const barChartForward = barChatData.forward
-
-//   meterRegular = barChartRegular
-//   meterForward = barChartForward
-
-//   console.log(meterRegular, meterForward)
-// }
