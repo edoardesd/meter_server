@@ -77,9 +77,11 @@ function updateChart(){
 setInterval(updateChart, 5000);
 
 function notifyEvent(text) {
-    var x = document.getElementById("snackbar");  
-    x.className = "show";
-    x.textContent = text;
+    var snackBar = document.getElementById("snackbar");
+    var event_txt = document.getElementById("last_event_txt");  
+    snackBar.className = "show";
+    snackBar.textContent = text;
+    event_txt.textContent = "Last event: " + text;
   
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 3000);
   }
