@@ -1,3 +1,5 @@
+# How to run it: uvicorn api:app --reload
+
 from fastapi import FastAPI
 import ast
 import paho.mqtt.client as mqtt
@@ -7,7 +9,7 @@ BROKER_ADDRESS = "test.mosquitto.org"
 TOPIC_TO_SUBSCRIBE = "polimi/fiorentini/meter"
 app = FastAPI()
 global msg_forward
-msg_forward = {"m0": [0, 0], "m1": [0, 0]}
+msg_forward = {"m0": [0, 0], "m1": [0, 0], "last_event": "test"}
 
 app.add_middleware(
     CORSMiddleware,

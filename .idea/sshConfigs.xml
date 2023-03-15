@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig host="131.175.120.22" id="070b31b7-4c9a-4ef5-9e50-24eafaf1331e" keyPath="$USER_HOME$/Dropbox/phd_edo/bonsai-key.pem" port="22" nameFormat="DESCRIPTIVE" username="longo" />
+      <sshConfig host="131.175.120.22" id="070b31b7-4c9a-4ef5-9e50-24eafaf1331e" keyPath="$USER_HOME$/Dropbox/phd_edo/fiorentini/bonsai-key.pem" port="22" nameFormat="DESCRIPTIVE" username="longo" />
     </configs>
   </component>
 </project>

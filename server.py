@@ -1,4 +1,3 @@
-# to run uvicorn api:app --reload
 import json
 import re
 import signal
@@ -12,7 +11,7 @@ localIP = "131.175.120.22"
 localPort = 8883
 bufferSize = 1024
 msg_counter = 0
-_json = {"regular": [0, 0], "forward": [0, 0]}
+_json = {"regular": [0, 0], "forward": [0, 0], "last_event": "test"}
 sender_ids = dict()
 debug = False
 
