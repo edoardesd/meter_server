@@ -49,11 +49,13 @@ def parse_meter_id(mtr_id):
     return mtr_id
 
 
-def update_stats(fwd, _id):
+def update_stats(fwd, _id, txt):
     if fwd:
         _json["forward"][abs(_id-1)] += 1
     else:
         _json["regular"][_id] += 1
+
+    _json["last_event"] = txt
 
 
 def check_forward(_id):
@@ -89,7 +91,7 @@ while True:
     meter_id, message_id, message_rsrq = parse_string(message)
     forward, meter_id = check_forward(meter_id)
 
-    update_stats(forward, parse_meter_id(meter_id))
+    update_stats(forward, parse_meter_id(meter_id), "dummy text")
 
     print(json.dumps(_json))
     client.publish(TOPIC_TO_PUBLISH, json.dumps(_json), retain=True)
