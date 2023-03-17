@@ -65,7 +65,6 @@ while True:
     client.publish(TOPIC_TO_PUBLISH, json.dumps(_json), retain=True)
 
     if debug:
-        clientMsg = "Message from Client:{}".format(message)
-        # print(meter_id, message_id, message_rsrq)
-        print(sender_ids)
-        print(clientMsg)
+        clientMsg = "Message content: {}".format(message)
+        print(generator_id)
+        print(forwarder_id)
