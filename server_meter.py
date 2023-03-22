@@ -6,6 +6,7 @@ import sys
 import paho.mqtt.client as mqtt
 
 import parser
+import argparse
 
 BROKER_ADDRESS = "test.mosquitto.org"
 TOPIC_TO_PUBLISH = "polimi/fiorentini/meter"
@@ -37,6 +38,12 @@ def signal_handler(sig, frame):
     sys.exit()
 
 
+pars = argparse.ArgumentParser(description='Example program to demonstrate fiorentini ble meter')
+
+pars.add_argument('-s', '--shortrange', type=str, default='A', help='Meter short range')
+
+args = pars.parse_args()
+
 signal.signal(signal.SIGINT, signal_handler)
 
 print("UDP server up and listening")
@@ -55,11 +62,10 @@ while True:
     msg_counter += msg_counter
     message = bytesAddressPair[0]
     address_port = bytesAddressPair[1]
+    if debug: print("Message received {}".format(message))
 
-    print("Message received {}".format(message))
-
-    generator_id, forwarder_id = parser.parse_message(message)
-    _json = parser.update_stats(generator_id, forwarder_id, _json)
+    generator_id, forwarder_id = parser.parse_message(message.decode("utf-8"))
+    _json = parser.update_stats(generator_id, forwarder_id, _json, args.shortrange)
 
     print(json.dumps(_json))
     client.publish(TOPIC_TO_PUBLISH, json.dumps(_json), retain=True)

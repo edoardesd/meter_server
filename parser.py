@@ -24,11 +24,23 @@ def is_forwarded(id_gen, id_fwd):
         return False
 
 
-def update_stats(generator, forwarder, _json):
-    if is_forwarded(generator, forwarder):
-        _json["forward"][generator] += 1
-    else:
-        _json["regular"][generator] += 1
+def update_stats(generator, forwarder, _json,shrange):
+    if shrange == 'c' or shrange == 'C':        
+        if is_forwarded(generator, forwarder):
+            _json["forward"][forwarder] += 1
+        else:
+            _json["regular"][forwarder] += 1
+    elif shrange == 'a' or shrange == 'A':        
+        if is_forwarded(generator, forwarder):
+            _json["forward"][forwarder-1] += 1
+        else:
+            _json["regular"][forwarder-1] += 1
+    elif shrange == 'b' or shrange == 'B':        
+        if is_forwarded(generator, forwarder):
+            _json["forward"][bool(forwarder)] += 1
+        else:
+            _json["regular"][bool(forwarder)] += 1
+    
 
     _json["last_event"] = update_last_event(generator, forwarder)
     return _json
