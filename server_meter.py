@@ -8,18 +8,24 @@ import paho.mqtt.client as mqtt
 import parser
 import argparse
 
-BROKER_ADDRESS = "test.mosquitto.org"
-TOPIC_TO_PUBLISH = "polimi/fiorentini/meter"
+BROKER_ADDRESS ="91.121.93.94" #"test.mosquitto.org"
+TOPIC_TO_PUBLISH = "polimi/fiorentini/meter_1"
 localIP = "131.175.120.22"
 localPort = 8883
 bufferSize = 1024
 msg_counter = 0
-_json = {"regular": [0, 0], "forward": [0, 0], "last_event": "test"}
+_json = {"regular": [0, 0], "forward": [0, 0], "last_event": "Welcome"}
 sender_ids = dict()
-debug = False
+debug = True
+
+
 
 # Create a datagram socket
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+UDPServerSocket.close()
+
+UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+UDPServerSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 # Bind to address and ip
 UDPServerSocket.bind((localIP, localPort))
@@ -40,7 +46,7 @@ def signal_handler(sig, frame):
 
 pars = argparse.ArgumentParser(description='Example program to demonstrate fiorentini ble meter')
 
-pars.add_argument('-s', '--shortrange', type=str, default='A', help='Meter short range')
+pars.add_argument('-s', '--shortrange', type=str, default='C', help='Meter short range')
 
 args = pars.parse_args()
 

@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 from starlette.middleware.cors import CORSMiddleware
 
 BROKER_ADDRESS = "test.mosquitto.org"
-TOPIC_TO_SUBSCRIBE = "polimi/fiorentini/meter"
+TOPIC_TO_SUBSCRIBE = "polimi/fiorentini/meter_1"
 app = FastAPI()
 global msg_forward
 msg_forward = {"m0": [0, 0], "m1": [0, 0], "last_event": "test"}

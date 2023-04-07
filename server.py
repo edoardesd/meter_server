@@ -13,7 +13,7 @@ bufferSize = 1024
 msg_counter = 0
 _json = {"regular": [0, 0], "forward": [0, 0], "last_event": "test"}
 sender_ids = dict()
-debug = False
+debug = True
 
 # Create a datagram socket
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
@@ -88,6 +88,7 @@ while True:
     msg_counter += msg_counter
     message = bytesAddressPair[0]
     address_port = bytesAddressPair[1]
+    print(message)
     meter_id, message_id, message_rsrq = parse_string(message)
     forward, meter_id = check_forward(meter_id)
 

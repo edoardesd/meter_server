@@ -1,5 +1,5 @@
 
-
+start_char = "A"
 def parse_message(msg):
     m_number = None
     f_number = None
@@ -49,5 +49,5 @@ def update_stats(generator, forwarder, _json,shrange):
 def update_last_event(generator, forwarder):
     return "New message {} by meter {}. Content from meter {}".format(
         "forwarded" if is_forwarded(generator, forwarder) else "received",
-        forwarder,
-        generator)
+        chr(ord(start_char[0])+forwarder),
+        chr(ord(start_char[0])+generator))
